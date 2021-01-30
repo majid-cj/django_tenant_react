@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    ports:
+      - "5434:5432"
+
+  rabbitmq:
+    image: rabbitmq
+
+  web: &web
+    build: .
+    restart: on-failure
+    command: bash -c "pip install -r requirements.txt && python manage.py migrate_schemas --shared && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - rabbitmq
+      - celery_worker
+
+  celery_worker:
+    <<: *web
+    command: bash -c "celery -A django_tenant_react worker --loglevel=info"
+    ports: []
+    depends_on:
+      - rabbitmq
+
+  frontend:
+    <<: *web
+    command: bash -c "npm run dev"
+    ports: []
