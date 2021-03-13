@@ -3,7 +3,7 @@ import { CLEAR_ERROR, SET_ERROR } from "../constants";
 const initialState = {
   auth: null,
   general: null,
-  user: null,
+  todo: null,
 };
 
 export default (state = initialState, payload) => {
@@ -14,13 +14,13 @@ export default (state = initialState, payload) => {
 
   switch (code) {
     case 100:
-      return { ...state, auth: message };
-
-    case 200:
       return { ...state, general: message };
 
+    case 200:
+      return { ...state, todo: message };
+
     case 300:
-      return { ...state, user: message };
+      return { ...state, auth: message };
 
     default:
       return { ...state };

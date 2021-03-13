@@ -5,9 +5,6 @@ export const LOG_OUT = "LOG_OUT";
 export const SET_ERROR = "SET_ERROR";
 export const CLEAR_ERROR = "CLEAR_ERROR";
 
-export const AUTH_NAVIGATION = "AUTH_NAVIGATION";
-export const APP_NAVIGATION = "APP_NAVIGATION";
-
 export const AUTH_LOADER = "AUTH_LOADER";
 export const TODO_GROUP_DIALOG = "TODO_GROUP_DIALOG";
 

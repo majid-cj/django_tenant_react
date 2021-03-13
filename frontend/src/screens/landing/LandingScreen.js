@@ -1,11 +1,10 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
+import { GroupsLists, NotLoggedIn } from "./components";
 
-const LandingScreen = () => {
-  return <h1>this is landing screen</h1>;
+export const LandingScreen = () => {
+  const logIn = useSelector((state) => state.config.logged_in);
+  if (!logIn) return <NotLoggedIn />;
+
+  return <GroupsLists />;
 };
-
-const mapStateToProps = (state) => ({});
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LandingScreen);

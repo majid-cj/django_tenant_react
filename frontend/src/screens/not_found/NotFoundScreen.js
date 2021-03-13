@@ -1,7 +1,9 @@
 import React from "react";
+import { ErrorBackground } from "../../components/ui";
+import BageNotFound from "../../resources/images/404.png";
 
 const NotFoundScreen = () => {
-  return <h1>this is not found screen</h1>;
+  return <ErrorBackground background={BageNotFound} />;
 };
 
 export { NotFoundScreen };

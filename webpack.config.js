@@ -15,6 +15,20 @@ module.exports = {
         exclude: /node_modules/,
         loader: "babel-loader",
       },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: "file-loader",
+        options: {
+          name: "[path][name].[ext]",
+        },
+      },
+      {
+        test: /\.(css)$/i,
+        loader: "file-loader",
+        options: {
+          name: "[path][name].[ext]",
+        },
+      },
     ],
   },
 
@@ -23,14 +37,7 @@ module.exports = {
   mode: "development",
   entry: "./frontend/src/index.js",
   output: {
-    path: path.resolve(__dirname, "frontend/static/frontend"),
-    filename: "main.js",
-  },
-
-  mode: "production",
-  entry: "./frontend/src/index.js",
-  output: {
-    path: path.resolve(__dirname, "frontend/static/frontend"),
+    path: path.resolve(__dirname, "frontend/static/frontend/js/"),
     filename: "main.js",
   },
 };

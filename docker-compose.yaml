@@ -15,7 +15,7 @@ services:
   web: &web
     build: .
     restart: on-failure
-    command: bash -c "pip install -r requirements.txt && python manage.py migrate_schemas --shared && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "pip install -r requirements.txt && python manage.py migrate_schemas && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/app
     ports:

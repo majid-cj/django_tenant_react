@@ -1,4 +1,3 @@
-from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import update_last_login
 
 from rest_framework_simplejwt.tokens import RefreshToken

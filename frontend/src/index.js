@@ -5,12 +5,12 @@ import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
 
 import reducers from "./reducers";
-import { Navigation } from "./navigations";
+import Routers from "./routers/Routers";
 
 const App = () => {
   return (
     <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
-      <Navigation />
+      <Routers />
     </Provider>
   );
 };

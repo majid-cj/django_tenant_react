@@ -4,6 +4,7 @@ import ConfigurationReducer from "./ConfigurationReducer";
 import TodoGroupReducer from "./TodoGroupReducer";
 import TodoReducer from "./TodoReducer";
 import UserReducer from "./UserReducer";
+import UIReducer from "./UIReducer";
 
 export default combineReducers({
   error: ErrorReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   group: TodoGroupReducer,
   todo: TodoReducer,
   user: UserReducer,
+  ui: UIReducer,
 });

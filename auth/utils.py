@@ -1,6 +1,6 @@
 import jwt
 
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.conf import settings
 
@@ -23,7 +23,7 @@ class DjangoReduxJWTAuthentication(BaseAuthentication):
             payload = jwt.decode(access_token, settings.SECRET_KEY, algorithms=['HS256'])
 
         except jwt.ExpiredSignatureError:
-            raise AuthenticationFailed(_('access_token expired'))
+            raise AuthenticationFailed(_('access token expired'))
         except IndexError:
             raise AuthenticationFailed(_('token prefix missing'))
 
