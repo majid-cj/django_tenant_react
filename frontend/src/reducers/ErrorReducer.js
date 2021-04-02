@@ -1,4 +1,4 @@
-import { CLEAR_ERROR, SET_ERROR } from "../constants";
+import { CLEAR_ERROR, SET_ERROR } from '../constants';
 
 const initialState = {
   auth: null,

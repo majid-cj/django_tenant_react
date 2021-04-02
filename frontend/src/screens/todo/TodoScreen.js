@@ -1,12 +1,5 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
 
-const TodoScreen = () => {
-  return <h1>this is todo screen</h1>;
+export const TodoScreen = () => {
+  return <div>this is todo screen</div>;
 };
-
-const mapStateToProps = (state) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(TodoScreen);

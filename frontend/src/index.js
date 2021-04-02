@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
 
 import reducers from "./reducers";
-import Routers from "./routers/Routers";
+import { Routers } from './routers';
 
 const App = () => {
   return (

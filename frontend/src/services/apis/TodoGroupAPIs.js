@@ -1,11 +1,6 @@
-import { TODO_GROUP_URL } from "../../constants";
-import {
-  BadRequest,
-  GeneralError,
-  ServerError,
-  UnauthorizedRequest,
-} from "../../utils/errors";
-import { api } from "./API";
+import { TODO_GROUP_URL } from '../../constants';
+import { BadRequest, GeneralError, ServerError, UnauthorizedRequest } from '../../utils/errors';
+import { api } from './API';
 
 export const createTodoGroup = async (requestData) => {
   try {
@@ -14,12 +9,15 @@ export const createTodoGroup = async (requestData) => {
     handleStatusCode(status);
     return response.data;
   } catch (error) {
-    const { status } = error.response;
-    handleStatusCode(status);
+    const {
+      status,
+      data: { name },
+    } = error.response;
+    handleStatusCode(status, name[0]);
   }
 };
 
-export const getTodoGroup = async (url) => {
+export const getTodoGroup = async (url = TODO_GROUP_URL) => {
   try {
     const response = await api().get(url);
     const { status } = response;
@@ -68,14 +66,14 @@ export const deleteTodoGroup = async (id) => {
   }
 };
 
-const handleStatusCode = (code) => {
+const handleStatusCode = (code, message = '') => {
   switch (code) {
     case 200:
     case 201:
       break;
 
     case 400:
-      throw new BadRequest();
+      throw new BadRequest(200, message);
 
     case 401:
       throw new UnauthorizedRequest();

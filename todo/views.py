@@ -13,7 +13,9 @@ from .serializers import TodoGroupSerializer, TodoSerializer
 class TodoGroupView(ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = TodoGroupSerializer
-    queryset = TodoGroup.objects.all().order_by('-id')
+    filter_backends = [SearchFilter]
+    search_fields = ['name']
+    queryset = TodoGroup.objects.all().order_by('id')
 
 
 class TodoView(ModelViewSet):

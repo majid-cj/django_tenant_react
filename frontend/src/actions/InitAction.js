@@ -1,6 +1,7 @@
-import { LOGGED_IN, SET_ERROR, SET_USER } from "../constants";
-import { getToken } from "../services/storages/Auth";
-import { getUser } from "../services/storages/User";
+import { AUTH_LOADER, LOGGED_IN, SET_ERROR, SET_USER } from '../constants';
+import { getToken } from '../services/storages/Auth';
+import { getUser } from '../services/storages/User';
+import { debounce } from '../utils/utils';
 
 export const initApp = () => (dispatch) => {
   const user = getUser();

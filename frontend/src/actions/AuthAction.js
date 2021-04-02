@@ -1,19 +1,11 @@
-import {
-  AUTH_LOADER,
-  LOGGED_IN,
-  LOG_OUT,
-  SET_ERROR,
-  SET_USER,
-} from "../constants";
-import { refreshToken, signinAPI, signupAPI } from "../services/apis/AuthAPIs";
-import { deleteToken, setToken } from "../services/storages/Auth";
-import { deleteUser, setUser } from "../services/storages/User";
-import { debounce, doNothing } from "../utils/utils";
-import { showMainLoader } from "./InitAction";
+import { LOGGED_IN, LOG_OUT, SET_ERROR, SET_USER } from '../constants';
+import { refreshToken, signinAPI, signupAPI } from '../services/apis/AuthAPIs';
+import { deleteToken, setToken } from '../services/storages/Auth';
+import { deleteUser, setUser } from '../services/storages/User';
+import { debounce, doNothing } from '../utils/utils';
+import { showMainLoader } from './InitAction';
 
-export const signinUser = (signinData, callBack = doNothing) => async (
-  dispatch
-) => {
+export const signinUser = (signinData, callBack = doNothing) => async (dispatch) => {
   dispatch(showMainLoader(true, 0));
   dispatch(clearAuthErrors());
   try {
@@ -41,9 +33,7 @@ export const signinUser = (signinData, callBack = doNothing) => async (
   }
 };
 
-export const signupUser = (signupData, callBack = doNothing) => async (
-  dispatch
-) => {
+export const signupUser = (signupData, callBack = doNothing) => async (dispatch) => {
   dispatch(showMainLoader(true, 0));
   dispatch(clearAuthErrors());
   try {
@@ -70,11 +60,15 @@ export const refreshUserToken = () => async (dispatch) => {
   }
 };
 
-export const signoutUser = () => (dispatch) => {
+export const signoutUser = (callBack = doNothing) => (dispatch) => {
   deleteUser();
   deleteToken();
   dispatch({ type: LOG_OUT });
   dispatch({ type: LOGGED_IN, value: false });
+
+  debounce(() => {
+    callBack();
+  })();
 };
 
 export const clearAuthErrors = (timeout = 5000) => (dispatch) => {

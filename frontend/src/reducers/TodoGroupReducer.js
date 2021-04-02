@@ -1,4 +1,4 @@
-import { UPDATE_TODO_GROUP_LIST } from "../constants";
+import { UPDATE_TODO_GROUP_LIST } from '../constants';
 
 const initialState = {
   groups: [],

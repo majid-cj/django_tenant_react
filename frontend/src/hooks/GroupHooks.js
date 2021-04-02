@@ -1,12 +1,12 @@
-import { useEffect, useReducer, useState } from "react";
-import { getTodoGroup } from "../services/apis/TodoGroupAPIs";
+import { useEffect, useReducer, useState } from 'react';
+import { getTodoGroup } from '../services/apis/TodoGroupAPIs';
 
 const INIT = 0,
   SUCCESS = 1,
   FAILED = 2;
 
-const grougFetchReducer = (state, action) => {
-  switch (action.type) {
+const groupFetchReducer = (state, payload) => {
+  switch (payload.type) {
     case INIT:
       return {
         ...state,
@@ -16,7 +16,7 @@ const grougFetchReducer = (state, action) => {
 
     case SUCCESS:
       return {
-        data: action.value,
+        data: payload.value,
         loading: false,
         error: null,
       };
@@ -25,7 +25,7 @@ const grougFetchReducer = (state, action) => {
       return {
         data: {},
         loading: false,
-        error: action.value,
+        error: payload.value,
       };
 
     default:
@@ -35,7 +35,7 @@ const grougFetchReducer = (state, action) => {
 
 export const getGroupsList = (initURL) => {
   const [url, setUrl] = useState(initURL);
-  const [state, dispatch] = useReducer(grougFetchReducer, {
+  const [state, dispatch] = useReducer(groupFetchReducer, {
     data: {},
     loading: false,
     error: null,
@@ -47,12 +47,16 @@ export const getGroupsList = (initURL) => {
       dispatch({ type: INIT });
       try {
         const response = await getTodoGroup(url);
+        const {count} = response
         if (!didCancel) dispatch({ type: SUCCESS, value: response });
 
-        if (!didCancel && response.count === 0)
-          dispatch({ type: FAILED, value: "list is empty" });
+        if (!didCancel && count === 0) {
+          dispatch({ type: FAILED, value: 'list is empty' });
+        }
       } catch (error) {
-        if (!didCancel) dispatch({ type: FAILED, value: error });
+        if (!didCancel) {
+          dispatch({ type: FAILED, value: error });
+        }
       }
     };
 
