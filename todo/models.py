@@ -13,6 +13,9 @@ class TodoGroup(models.Model):
     name = models.CharField(max_length=250)
     history = AuditlogHistoryField()
 
+    def __str__(self):
+        return self.name
+
 
 class Todo(models.Model):
     group = models.ForeignKey('todo.TodoGroup', on_delete=models.CASCADE)
@@ -22,6 +25,9 @@ class Todo(models.Model):
     created = models.DateTimeField(default=timezone.now)
     modified = models.DateTimeField(default=timezone.now)
     history = AuditlogHistoryField()
+
+    def __str__(self):
+        return f'{self.title} for group {self.group}'
 
     def save(self, *args, **kwargs):
         self.modified = timezone.now()

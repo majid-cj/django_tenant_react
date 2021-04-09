@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from 'react';
-import { getTodoGroup } from '../services/apis/TodoGroupAPIs';
+import { getAPI } from '../services/apis/TodoGroupAPIs';
 
 const INIT = 0,
   SUCCESS = 1,
@@ -33,7 +33,7 @@ const groupFetchReducer = (state, payload) => {
   }
 };
 
-export const getGroupsList = (initURL) => {
+export const fetchListHook = (initURL) => {
   const [url, setUrl] = useState(initURL);
   const [state, dispatch] = useReducer(groupFetchReducer, {
     data: {},
@@ -46,7 +46,7 @@ export const getGroupsList = (initURL) => {
     const getGroups = async () => {
       dispatch({ type: INIT });
       try {
-        const response = await getTodoGroup(url);
+        const response = await getAPI(url);
         const {count} = response
         if (!didCancel) dispatch({ type: SUCCESS, value: response });
 

@@ -5,10 +5,10 @@ import { signupUser, setAuthErrors } from '../../actions';
 import { ConfirmPasswordField, NameField, PasswordField, UsernameField } from '../../components/inputs';
 import { Alert } from '../../components/ui';
 import { SIGN_IN_SCREEN } from '../../constants';
-import { SignupValidator } from '../../utils/validators';
+import { SignUpValidator } from '../../utils/validators';
 
 export const SignupScreen = () => {
-  const [signup] = useState(new SignupValidator());
+  const [signup] = useState(new SignUpValidator());
   const history = useHistory();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.error.auth);

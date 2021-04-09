@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 import { InputField } from './InputField';
 
-export const GroupField = ({ onValue, initialValue = '' }) => {
-  const [group, setGroup] = useState(initialValue);
+export const TitleInput = ({ onValue }) => {
+  const [todoTitle, setTodoTitle] = useState('');
   const [error, setError] = useState(false);
 
   const onValueChange = ({ target: { value } }) => {
-    setGroup(value);
+    setTodoTitle(value);
     onValue(value);
-    setError(!value.length === 5);
+    setError(!value.length === 0);
   };
 
   return (
     <InputField
       onValueChange={onValueChange}
-      value={group}
+      value={todoTitle}
       error={error}
-      icon='card-checklist'
-      placeholder='group name'
+      icon='hash'
+      placeholder='todo title'
       required={true}
     />
   );

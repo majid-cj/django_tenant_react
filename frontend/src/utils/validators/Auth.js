@@ -22,7 +22,7 @@ class AuthValidator {
     this.password = password;
   }
 
-  _validateSignin() {
+  _validateSignIn() {
     if (!validateUsername(this.username)) {
       throw new InvalidUsername();
     }
@@ -33,7 +33,7 @@ class AuthValidator {
   }
 
   getAuthData() {
-    this._validateSignin();
+    this._validateSignIn();
     return {
       username: this.username,
       password: this.password,
@@ -41,9 +41,9 @@ class AuthValidator {
   }
 }
 
-export class SigninValidator extends AuthValidator {}
+export class SignInValidator extends AuthValidator {}
 
-export class SignupValidator extends AuthValidator {
+export class SignUpValidator extends AuthValidator {
   constructor() {
     super();
     this.name = "";
@@ -58,12 +58,12 @@ export class SignupValidator extends AuthValidator {
     this.confirm_password = confirm_password;
   }
 
-  _validateSignup() {
+  _validateSignUp() {
     if (!validateName(this.name)) {
       throw new InvalidName();
     }
 
-    this._validateSignin();
+    this._validateSignIn();
 
     if (!matchPassword(this.password, this.confirm_password)) {
       throw new PasswordNotMatching();
@@ -71,7 +71,7 @@ export class SignupValidator extends AuthValidator {
   }
 
   getSignupData() {
-    this._validateSignup();
+    this._validateSignUp();
     const { username, password } = this.getAuthData();
 
     return {

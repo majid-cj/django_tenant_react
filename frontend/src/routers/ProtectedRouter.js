@@ -1,27 +1,29 @@
-import React from "react";
-import { Redirect, Route } from "react-router-dom";
-import { UNAUTHORIZED_SCREEN } from "../constants";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Redirect, Route } from 'react-router-dom';
+import { UNAUTHORIZED_SCREEN } from '../constants';
 
-export const ProtectedRouter = ({ component: Component, login, ...rest }) => {
+export const ProtectedRouter = ({ component: Component, ...rest }) => {
+  const logged_in = useSelector((state) => state.config.logged_in);
+
   return (
     <Route
+      exact
       {...rest}
-      render={(props) => {
-        if (login) {
-          return <Component {...rest} {...props} />;
-        } else {
-          return (
-            <Redirect
-              to={{
-                pathname: UNAUTHORIZED_SCREEN,
-                state: {
-                  from: props.location,
-                },
-              }}
-            />
-          );
-        }
-      }}
+      render={(props) =>
+        logged_in ? (
+          <Component />
+        ) : (
+          <Redirect
+            to={{
+              pathname: UNAUTHORIZED_SCREEN,
+              state: {
+                from: props.location,
+              },
+            }}
+          />
+        )
+      }
     ></Route>
   );
 };

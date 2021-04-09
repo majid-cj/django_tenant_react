@@ -38,6 +38,7 @@ ALLOWED_HOSTS = ['*']
 SHARED_APPS = [
     'django_tenants',
     'tenants',
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -220,6 +221,10 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
+
+JAZZMIN_SETTINGS = {
+    "language_chooser": True,
+}
 
 APPLICATION_DOMAIN = os.getenv('APPLICATION_DOMAIN', 'djangotenant.com')
 

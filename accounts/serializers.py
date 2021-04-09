@@ -29,7 +29,7 @@ class AccountSerializer(serializers.ModelSerializer):
                 password=validated_data['password'],
             )
 
-        return Account.objects.create_user(
+        return Account.objects.create_superuser(
             name=validated_data['name'],
             username=validated_data['username'],
             password=validated_data['password'],

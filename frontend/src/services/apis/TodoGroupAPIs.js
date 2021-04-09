@@ -2,22 +2,19 @@ import { TODO_GROUP_URL } from '../../constants';
 import { BadRequest, GeneralError, ServerError, UnauthorizedRequest } from '../../utils/errors';
 import { api } from './API';
 
-export const createTodoGroup = async (requestData) => {
+export const createAPI = async (requestData, URL = TODO_GROUP_URL) => {
   try {
-    const response = await api().post(TODO_GROUP_URL, requestData);
+    const response = await api().post(URL, requestData);
     const { status } = response;
     handleStatusCode(status);
     return response.data;
   } catch (error) {
-    const {
-      status,
-      data: { name },
-    } = error.response;
-    handleStatusCode(status, name[0]);
+    const { status } = error.response;
+    handleStatusCode(status);
   }
 };
 
-export const getTodoGroup = async (url = TODO_GROUP_URL) => {
+export const getAPI = async (url = TODO_GROUP_URL) => {
   try {
     const response = await api().get(url);
     const { status } = response;
@@ -29,22 +26,10 @@ export const getTodoGroup = async (url = TODO_GROUP_URL) => {
   }
 };
 
-export const getTodoGroupByID = async (id) => {
-  try {
-    const response = await api().get(`${TODO_GROUP_URL}${id}/`);
-    const { status } = response;
-    handleStatusCode(status);
-    return response.data;
-  } catch (error) {
-    const { status } = error.response;
-    handleStatusCode(status);
-  }
-};
-
-export const updateTodoGroup = async (requestData) => {
+export const updateAPI = async (requestData, URL) => {
   const { id } = requestData;
   try {
-    const response = await api().put(`${TODO_GROUP_URL}${id}/`, requestData);
+    const response = await api().put(`${URL}${id}/`, requestData);
     const { status } = response;
     handleStatusCode(status);
     return response.data;
@@ -54,9 +39,9 @@ export const updateTodoGroup = async (requestData) => {
   }
 };
 
-export const deleteTodoGroup = async (id) => {
+export const deleteAPI = async (id, URL) => {
   try {
-    const response = await api().delete(`${TODO_GROUP_URL}${id}/`);
+    const response = await api().delete(`${URL}${id}/`);
     const { status } = response;
     handleStatusCode(status);
     return response.data;
@@ -66,25 +51,25 @@ export const deleteTodoGroup = async (id) => {
   }
 };
 
-const handleStatusCode = (code, message = '') => {
+const handleStatusCode = (code) => {
   switch (code) {
     case 200:
     case 201:
       break;
 
     case 400:
-      throw new BadRequest(200, message);
+      throw new BadRequest(200);
 
     case 401:
-      throw new UnauthorizedRequest();
+      throw new UnauthorizedRequest(200);
 
     case 404:
-      throw new NotData();
+      throw new NotData(200);
 
     case 503:
-      throw new ServerError();
+      throw new ServerError(200);
 
     default:
-      throw new GeneralError();
+      throw new GeneralError(200);
   }
 };

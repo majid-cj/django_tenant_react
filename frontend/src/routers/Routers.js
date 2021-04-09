@@ -38,25 +38,17 @@ export const Routers = () => {
       <main className='mt-2 p-2 container'>
         <Switch>
           <Route exact path={HOME_SCREEN} component={LandingScreen} />
-          <UnProtectedRouter exact path={SIGN_IN_SCREEN} component={SigninScreen} login={logged_in} />
-          <UnProtectedRouter exact path={SIGN_UP_SCREEN} component={SignupScreen} login={logged_in} />
+          <UnProtectedRouter path={SIGN_IN_SCREEN} component={SigninScreen} />
+          <UnProtectedRouter path={SIGN_UP_SCREEN} component={SignupScreen} />
           <Route
             path={GROUPS_SCREEN}
-            login={logged_in}
             render={({ match: { url } }) => (
               <>
-                <ProtectedRouter exact path={`${url}/`} component={GroupScreen} login={logged_in} />
+                <ProtectedRouter path={`${url}/`} component={GroupScreen} />
+                <ProtectedRouter path={`${url}/:group_id(\\d+)${TODO_SCREEN}`} component={TodoScreen} />
                 <ProtectedRouter
-                  exact
-                  path={`${url}/:group_id(\\d+)${TODO_SCREEN}`}
-                  component={TodoScreen}
-                  login={logged_in}
-                />
-                <ProtectedRouter
-                  exact
                   path={`${url}/:group_id(\\d+)${TODO_SCREEN}/:todo_id(\\d+)`}
                   component={TodoDetailScreen}
-                  login={logged_in}
                 />
               </>
             )}

@@ -1,5 +1,5 @@
-import { SET_ERROR } from '../constants';
-import { createTodoGroup } from '../services/apis/TodoGroupAPIs';
+import { SET_ERROR, TODO_GROUP_URL } from '../constants';
+import { createAPI, updateAPI } from '../services/apis/TodoGroupAPIs';
 import { debounce, doNothing } from '../utils/utils';
 import { showMainLoader } from './InitAction';
 
@@ -7,7 +7,7 @@ export const createTodoGroups = (requestData, callback = doNothing) => async (di
   dispatch(showMainLoader(true, 0));
   dispatch(clearTodoErrors());
   try {
-    await createTodoGroup(requestData);
+    await createAPI(requestData);
 
     debounce(() => {
       callback();
@@ -19,7 +19,21 @@ export const createTodoGroups = (requestData, callback = doNothing) => async (di
   }
 };
 
-export const updateTodoGroups = () => async (dispatch) => {};
+export const updateTodoGroups = (requestData, callback = doNothing) => async (dispatch) => {
+  dispatch(showMainLoader(true, 0));
+  dispatch(clearTodoErrors());
+  try {
+    await updateAPI(requestData, TODO_GROUP_URL);
+
+    debounce(() => {
+      callback();
+    })();
+  } catch (error) {
+    dispatch({ type: SET_ERROR, value: error });
+  } finally {
+    dispatch(showMainLoader());
+  }
+};
 
 export const deleteTodoGroups = () => async (dispatch) => {};
 
