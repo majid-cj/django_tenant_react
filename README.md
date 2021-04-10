@@ -1,7 +1,7 @@
 # Django Tenant React 🐍
 this is a simple todo list application, written with django and django rest framework, 
-support multitenancy and auditlog, and the front-end im still working on it, 
-but for now it will be written in ReactJS and for the state management i will be using Redux and React Context API.
+support multitenancy and auditlog, and the front-end is written in ReactJS, 
+and for the state management Redux and React Context API are used.
 
 # **getting started 🚦**
 
