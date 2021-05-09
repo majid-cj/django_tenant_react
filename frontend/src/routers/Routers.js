@@ -25,7 +25,6 @@ import { LandingScreen } from '../screens/landing/LandingScreen';
 
 export const Routers = () => {
   const loader = useSelector((state) => state.ui.loader);
-  const logged_in = useSelector((state) => state.config.logged_in);
 
   const dispatch = useDispatch();
   useEffect(() => {

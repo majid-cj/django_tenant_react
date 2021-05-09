@@ -1,17 +1,25 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { UNAUTHORIZED_SCREEN } from '../constants';
+import { getToken } from '../services/storages/Auth';
 
 export const ProtectedRouter = ({ component: Component, ...rest }) => {
-  const logged_in = useSelector((state) => state.config.logged_in);
+  const [authenticated, setAuthenticated] = useState(true);
+
+  useEffect(() => {
+    const getAuthenticated = async () => {
+      const token = await getToken();
+      setAuthenticated(token !== null);
+    };
+    getAuthenticated();
+  }, []);
 
   return (
     <Route
       exact
       {...rest}
       render={(props) =>
-        logged_in ? (
+        authenticated ? (
           <Component />
         ) : (
           <Redirect

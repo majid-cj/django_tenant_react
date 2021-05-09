@@ -12,8 +12,8 @@ export const TodoCard = ({ todo }) => {
 
   return (
     <div className='rounded col-10 border border-light m-1 p-1'>
-      <div className='d-flex flex-row'>
-        <input className='mx-1 fs-3' type='checkbox' id={`${id}-check-box`} defaultChecked={is_done} onChange={onChecked} />
+      <div className='d-flex flex-row align-items-center'>
+        <input className='mx-1 fs-1' type='checkbox' id={`${id}-check-box`} defaultChecked={is_done} onChange={onChecked} />
         <label className='mx-1 fs-3' htmlFor={`${id}-check-box`}>
           {title}
         </label>
