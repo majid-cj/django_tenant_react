@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearTodoErrors, createTodoGroups } from '../../../../actions';
+import { clearTodoGroupErrors, createTodoGroups } from '../../../../actions';
 import { IconButton } from '../../../../components/buttons';
 import { SearchField } from '../../../../components/inputs';
 import { AddGroupModal } from '../../../../components/modals';
@@ -27,7 +27,7 @@ export const GroupsLists = () => {
   ] = fetchListHook(TODO_GROUP_URL);
 
   const dismiss = () => {
-    dispatch(clearTodoErrors());
+    dispatch(clearTodoGroupErrors());
     setShow(false);
   };
 

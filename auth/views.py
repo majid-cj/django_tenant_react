@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from rest_framework.decorators import api_view
 from rest_framework.views import Response
@@ -21,15 +21,17 @@ class DjangoReduxObtainToken(TokenObtainPairView):
     serializer_class = DjangoReduxJWTSerializers
 
 
-@api_view(['POST'])
+@api_view(["POST"])
 def sign_up(request):
     serializer = AccountSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
 
-    find_one = Tenant.objects.filter(schema_name=request.data.get('username'))
+    find_one = Tenant.objects.filter(schema_name=request.data.get("username"))
     if find_one.first():
-        return Response(status=HTTP_400_BAD_REQUEST, data=_('this username is already exists'))
+        return Response(
+            status=HTTP_400_BAD_REQUEST, data=_("this username is already exists")
+        )
 
     create_account(data=request.data)
-    send_log_in_email(email=request.data.get('email'))
-    return Response(status=HTTP_201_CREATED, data=_('account created login next'))
+    send_log_in_email(email=request.data.get("email"))
+    return Response(status=HTTP_201_CREATED, data=_("account created login next"))

@@ -5,7 +5,7 @@ import { showMainLoader } from './InitAction';
 
 export const createTodoGroups = (requestData, callback = doNothing) => async (dispatch) => {
   dispatch(showMainLoader(true, 0));
-  dispatch(clearTodoErrors());
+  dispatch(clearTodoGroupErrors());
   try {
     await createAPI(requestData);
 
@@ -21,7 +21,7 @@ export const createTodoGroups = (requestData, callback = doNothing) => async (di
 
 export const updateTodoGroups = (requestData, callback = doNothing) => async (dispatch) => {
   dispatch(showMainLoader(true, 0));
-  dispatch(clearTodoErrors());
+  dispatch(clearTodoGroupErrors());
   try {
     await updateAPI(requestData, TODO_GROUP_URL);
 
@@ -37,7 +37,7 @@ export const updateTodoGroups = (requestData, callback = doNothing) => async (di
 
 export const deleteTodoGroups = () => async (dispatch) => {};
 
-export const clearTodoErrors = () => (dispatch) => {
+export const clearTodoGroupErrors = () => (dispatch) => {
   const error = { code: 200, message: null };
   dispatch({ type: SET_ERROR, value: error });
 };
